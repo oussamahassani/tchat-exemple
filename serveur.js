@@ -5,6 +5,8 @@ const moment = require('moment');
 const socketio = require('socket.io')
 const Chat = require('./module/model/message.model')
 const formatMessage = require('./module/messages');
+const fs = require('fs')
+const multer = require('multer')
 const {
   userJoin,
   getCurrentUser,
@@ -23,12 +25,34 @@ const  connect  =  mongoose.connect(process.env.ATLAS, { useNewUrlParser: true  
 app.use(express.static(path.join(__dirname, 'public')));
 
 const Namesite = 'mon chat';
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/image')
+  },
+  filename: function (req, file, cb) {
+    cb(null,file.originalname )
+  }
+})
 
+var upload = multer({ storage: storage }).array('file')
 // Run when client connects
 io.on('connection', client => {
+
+  client.on('fileuplod',file => {
+    const user = getCurrentUser(client.id);
+    io.to(user.room).emit('addimage' , file)
+    
+    });
+
   client.on('joinRoom', ({ username, room }) => {
     const user = userJoin(client.id, username, room);
-
+    fs.readFile(__dirname + '/index.jpeg', function(err, buf){
+      // it's possible to embed binary data
+      // within arbitrarily-complex objects
+      client.emit('image', { image: true, buffer: buf });
+      console.log('image file is initialized');
+    })
+  
     client.join(user.room);
 
     // Welcome current user

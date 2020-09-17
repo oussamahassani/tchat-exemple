@@ -18,6 +18,41 @@ socket.on('roomUsers', ({ room, users }) => {
   outputUsers(users);
 });
 
+//uplode imga 
+onchangefile = () => {
+  const file = document.getElementById("fileuplode").files
+ let reader = new FileReader();
+reader.onload = function (evt) {
+  socket.emit("fileuplod" , evt.target.result);
+}
+reader.readAsDataURL(file[0])
+ 
+}
+//
+socket.on("addimage" , image => {
+  const photo = document.createElement('img')
+  photo.src= image
+  document.querySelector('.chat-messages').appendChild(photo);
+})
+// resive image
+socket.on("image", function(info) {
+ if (info) {
+
+  image = document.createElement('img')
+ // canvas.id = "canvs";
+  //canvas.width ='280';
+ // canvas.height = '280'
+   console.log(info.buffer)
+   const canvaimage = new Image(60, 45)
+ 
+  // image.src = 'data:image/jpeg;base64,' + info.buffer;
+
+  // image.src = 'index.jpeg'
+//document.querySelector('.chat-messages').appendChild(image);
+   // document.querySelector('.chat-messages').appendChild(canvas);
+    console.log("boucle")
+  }
+})
 // Message from server
 socket.on('message', message => {
   console.log(message);
