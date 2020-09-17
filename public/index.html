@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test-chate</title> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/
+css/font-awesome.min.css">
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+    <p class="presentation">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus sed arcu 
+        ut dapibus. Fusce elit sem, blandit id sollicitudin et, maximus eget nunc. 
+        Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec ut metus et 
+        leo bibendum facilisis ut at lacus. Curabitur euismod consectetur lorem,</p>
+    </div>
+    <div class="join-container">
+       
+		<header class="join-header">
+			<h1><i class="fa fa-commenting" aria-hidden="true"></i>
+                Mon chate</h1>
+		</header>
+		<main class="join-main">
+			<form action="room.html">
+				<div class="form-control">
+					<label for="username">Username</label>
+					<input
+						type="text"
+						name="username"
+						id="username"
+						placeholder="Enter username..."
+						required
+					/>
+				</div>
+				<div class="form-control">
+					<label for="room">Room</label>
+					<select name="room" id="room">
+						<option value="gerenral">gerenral</option>
+                        <option value="sujet1">sujet1</option>
+                        <option value="sujet2">sujet2</option>
+					</select>
+				</div>
+				<button type="submit" class="btn">Join Chat</button>
+			</form>
+		</main>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+  ></script>
+ <script src="/socket.io/socket.io.js"></script>
+ <script src="js/main.js"></script>
+</body>
+</html>
